@@ -4,12 +4,12 @@
 cd $(dirname $0)
 
 dev_build() {
-	#JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home "/Applications/NetBeans/NetBeans 8.2.app/Contents/Resources/NetBeans/java/maven/bin/mvn" package
-	mvn package
+	JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home "/Applications/NetBeans/NetBeans 8.2.app/Contents/Resources/NetBeans/java/maven/bin/mvn" package
+	#mvn package
 }
 
 dev_run() {
-	java -jar target/endorsed/jetty-runner.jar --port 80 target/*.war
+	sudo java -jar target/endorsed/jetty-runner.jar --port 80 target/*.war
 }
 
 dev_smoke() {
@@ -23,7 +23,7 @@ dev_smoke() {
 }
 
 _run_smoke() {
-  baseUrl="http://localhost:8088"
+  baseUrl="http://localhost"
   echo "Running smoke tests on $baseUrl..." && \
     (curl -fsS "$baseUrl/api/direct?dep_sid=3&arr_sid=4" | grep -E 'true|false') && \
     (curl -fsS "$baseUrl/api/direct?dep_sid=0&arr_sid=1" | grep -E 'true|false')
