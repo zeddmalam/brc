@@ -44,13 +44,11 @@ public class ApiControllerTest {
 	}
 
 	/**
-	 * Test of direct method, of class DefaultController.
+	 * Test of direct method, of class ApiController.
+	 * Both route ids are null
 	 */
 	@Test
-	public void testDirect() {
-		/**
-		 * both route ids are null
-		 */
+	public void testDirectIdsAreNull() {
 		Integer depSid = null;
 		Integer arrSid = null;
 		
@@ -58,69 +56,78 @@ public class ApiControllerTest {
 		assertEquals(false, result.getDirectBusRoute());
 		assertEquals(depSid, result.getDepSid());
 		assertEquals(arrSid, result.getArrSid());
+	}
+
+	/**
+	 * Test of direct method, of class ApiController.
+	 * Existing direct route with correct direction
+	 */
+	@Test
+	public void testDirectCorrectRoute() {
+		Integer depSid = 5;
+		Integer arrSid = 138;
 		
-		/**
-		 * existing direct route with correct direction
-		 */
-		depSid = 5;
-		arrSid = 138;
-		
-		result = apiController.direct(depSid, arrSid);
+		DirectResponse result = apiController.direct(depSid, arrSid);
 		assertEquals(true, result.getDirectBusRoute());
 		assertEquals(depSid, result.getDepSid());
 		assertEquals(arrSid, result.getArrSid());
+	}
 
-		/**
-		 * existing direct route with incorrect direction
-		 */
-		depSid = 138;
-		arrSid = 5;
+	/**
+	 * Test of direct method, of class ApiController.
+	 * Not existing direct route.
+	 */
+	@Test
+	public void testDirectNoDirectRoute() {
+		Integer depSid = 5;
+		Integer arrSid = 17;
 		
-		result = apiController.direct(depSid, arrSid);
+		DirectResponse result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirectBusRoute());
 		assertEquals(depSid, result.getDepSid());
 		assertEquals(arrSid, result.getArrSid());
+	}
 
-		/**
-		 * not existing direct route
-		 */
-		depSid = 5;
-		arrSid = 17;
+	/**
+	 * Test of direct method, of class ApiController.
+	 * Arrival stop id does not exists.
+	 */
+	@Test
+	public void testDirectNoArrival() {
+		Integer depSid = 5;
+		Integer arrSid = 17000;
 		
-		result = apiController.direct(depSid, arrSid);
+		DirectResponse result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirectBusRoute());
 		assertEquals(depSid, result.getDepSid());
 		assertEquals(arrSid, result.getArrSid());
-
-		/**
-		 * arrival stop id does not exists
-		 */
-		depSid = 5;
-		arrSid = 17000;
+	}
+	
+	/**
+	 * Test of direct method, of class ApiController.
+	 * Departure stop id does not exists.
+	 */
+	@Test
+	public void testDirectNoDeparture() {
+		Integer depSid = 50000;
+		Integer arrSid = 17;
 		
-		result = apiController.direct(depSid, arrSid);
+		DirectResponse result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirectBusRoute());
 		assertEquals(depSid, result.getDepSid());
 		assertEquals(arrSid, result.getArrSid());
-
-		/**
-		 * departure stop id does not exists
-		 */
-		depSid = 50000;
-		arrSid = 17;
+	}
+	
+	/**
+	 * Test of direct method, of class ApiController.
+	 * Both stop ids does not exists.
+	 */
+	@Test
+	public void testDirectNoDepartureNoArrival() {
+		Integer depSid = 50000;
+		Integer arrSid = 17000;
 		
-		result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirectBusRoute());
-		assertEquals(depSid, result.getDepSid());
-		assertEquals(arrSid, result.getArrSid());
-
-		/**
-		 * both stop ids does not exists
-		 */
-		depSid = 50000;
-		arrSid = 17000;
-		
-		result = apiController.direct(depSid, arrSid);
+		DirectResponse result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirectBusRoute());
 		assertEquals(depSid, result.getDepSid());
 		assertEquals(arrSid, result.getArrSid());
