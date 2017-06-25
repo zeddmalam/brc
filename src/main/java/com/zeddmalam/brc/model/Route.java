@@ -10,6 +10,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Route implements Serializable {
+
 	@Id
 	public Integer Id;
 	public ArrayList<Integer> sids = new ArrayList<>();
@@ -22,8 +23,8 @@ public class Route implements Serializable {
 		this.Id = Id;
 		return this;
 	}
-	
-	public ArrayList<Integer> getSids(){
+
+	public ArrayList<Integer> getSids() {
 		return this.sids;
 	}
 }

@@ -19,11 +19,11 @@ public class ApiController {
 
 	@Autowired
 	RouteDao routeDao;
-	
+
 	/**
 	 * this API call determines if direct route is possible between departure
 	 * and arrival bus stations for single transportation provider
-	 * 
+	 *
 	 * @param depSid departure bus station id
 	 * @param arrSid arrival bus station id
 	 * @return JSON object
@@ -32,14 +32,14 @@ public class ApiController {
 	@ResponseBody
 	public DirectResponse direct(@RequestParam("dep_sid") Integer depSid, @RequestParam("arr_sid") Integer arrSid) {
 		Route route = routeDao.findDirect(depSid, arrSid);
-		
+
 		DirectResponse response = new DirectResponse()
 			.setDirectBusRoute(false)
 			.setArrSid(arrSid)
 			.setDepSid(depSid);
-		
-		if(null != route){
-			response.setDirectBusRoute(Boolean.TRUE);
+
+		if (route != null) {
+			response.setDirectBusRoute(true);
 		}
 		return response;
 	}

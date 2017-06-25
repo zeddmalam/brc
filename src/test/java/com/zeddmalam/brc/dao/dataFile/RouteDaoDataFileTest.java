@@ -23,77 +23,61 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ContextConfiguration(classes = {AppConfig.class})
 @WebAppConfiguration
 public class RouteDaoDataFileTest {
-	
+
 	@Autowired
 	RouteDao routeDao;
-	
-	@BeforeClass
-	public static void setUpClass() {
-	}
-	
-	@AfterClass
-	public static void tearDownClass() {
-	}
-	
-	@Before
-	public void setUp() {
-	}
-	
-	@After
-	public void tearDown() {
-	}
 
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile. 
-	 * Both route ids are null
+	 * Test of findDirect method, of class RouteDaoDataFile. Both route ids are
+	 * null
 	 */
 	@Test
 	public void testFindDirectIdsAreNull() {
 		Integer depSid = null;
 		Integer arrSid = null;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 	}
-	
+
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile.
-	 * Existing direct route with correct direction.
+	 * Test of findDirect method, of class RouteDaoDataFile. Existing direct
+	 * route with correct direction.
 	 */
 	@Test
 	public void testFindDirectCorrectRoute() {
 		Integer depSid = 5;
 		Integer arrSid = 138;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNotNull(result);
 		assertTrue(result.getSids().indexOf(depSid) > -1);
 		assertTrue(result.getSids().indexOf(arrSid) > -1);
 		assertTrue(result.getSids().indexOf(depSid) < result.getSids().indexOf(arrSid));
 	}
-	
+
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile.
-	 * Existing direct route with incorrect direction
+	 * Test of findDirect method, of class RouteDaoDataFile. Existing direct
+	 * route with incorrect direction
 	 */
 	@Test
 	public void testFindDirectWrongDirection() {
 		Integer depSid = 138;
 		Integer arrSid = 5;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 	}
-	
+
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile.
-	 * Not existing direct route.
+	 * Test of findDirect method, of class RouteDaoDataFile. Not existing direct
+	 * route.
 	 */
 	@Test
 	public void testFindDirectNotExistingRoute() {
 		Integer depSid = 5;
 		Integer arrSid = 17;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 		/**
@@ -101,7 +85,7 @@ public class RouteDaoDataFileTest {
 		 */
 		depSid = 5;
 		arrSid = 17;
-		
+
 		result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 
@@ -110,7 +94,7 @@ public class RouteDaoDataFileTest {
 		 */
 		depSid = 5;
 		arrSid = 17000;
-		
+
 		result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 
@@ -119,7 +103,7 @@ public class RouteDaoDataFileTest {
 		 */
 		depSid = 50000;
 		arrSid = 17;
-		
+
 		result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 
@@ -128,101 +112,100 @@ public class RouteDaoDataFileTest {
 		 */
 		depSid = 50000;
 		arrSid = 17000;
-		
+
 		result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 	}
-	
+
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile.
-	 * Arrival stop id does not exists.
+	 * Test of findDirect method, of class RouteDaoDataFile. Arrival stop id
+	 * does not exists.
 	 */
 	@Test
 	public void testFindDirectNoArrival() {
 		Integer depSid = 5;
 		Integer arrSid = 17000;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 	}
-	
+
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile.
-	 * Departure stop id does not exists.
+	 * Test of findDirect method, of class RouteDaoDataFile. Departure stop id
+	 * does not exists.
 	 */
 	@Test
 	public void testFindDirectNoDeparture() {
 		Integer depSid = 50000;
 		Integer arrSid = 17;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 	}
-	
+
 	/**
-	 * Test of findDirect method, of class RouteDaoDataFile.
-	 * Both stop ids does not exists.
+	 * Test of findDirect method, of class RouteDaoDataFile. Both stop ids does
+	 * not exists.
 	 */
 	@Test
 	public void testFindDirectNoArrivalNoDeparture() {
 		Integer depSid = 50000;
 		Integer arrSid = 17000;
-		
+
 		Route result = routeDao.findDirect(depSid, arrSid);
 		assertNull(result);
 	}
-	
+
 	/**
 	 * Normal route dump.
 	 */
 	@Test
-	public void testToRouteNormal(){
+	public void testToRouteNormal() {
 		String dump = "100 1 2 3 4 5";
 		Integer id = 100;
 		Route result = routeDao.toRoute(dump);
 		assertEquals(id, result.getId());
-		for(Integer x = 1; x < 6; x++){
+		for (Integer x = 1; x < 6; x++) {
 			assertEquals(x, result.getSids().get(x - 1));
 		}
 	}
-	
+
 	/**
-	 * Empty route. This route can not be really used because there is not 
-	 * bus stop ids assigned to it. but it can be used like reservation of
-	 * route id.
+	 * Empty route. This route can not be really used because there is not bus
+	 * stop ids assigned to it. but it can be used like reservation of route id.
 	 */
 	@Test
-	public void testToRouteIdOnly(){
+	public void testToRouteIdOnly() {
 		String dump = "100";
 		Integer id = 100;
 		Route result = routeDao.toRoute(dump);
 		assertEquals(id, result.getId());
 		assertTrue(result.getSids().isEmpty());
 	}
-	
+
 	/**
 	 * Route dump with not numeric route id.
 	 */
 	@Test
-	public void testToRouteInvalidId(){
+	public void testToRouteInvalidId() {
 		String dump = "hundred 1 2 3 4 5";
-		try{
+		try {
 			Route result = routeDao.toRoute(dump);
-		}catch(NumberFormatException ex){
+		} catch (NumberFormatException ex) {
 			String expectedMessage = "For input string: \"hundred\"";
 			assertEquals(expectedMessage, ex.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Route dump with not numeric bus stop id.
 	 */
 	@Test
-	public void testToRouteInvalidRouteId(){
+	public void testToRouteInvalidRouteId() {
 		String dump = "100 one 2 3 4 5";
-		try{
+		try {
 			Route result = routeDao.toRoute(dump);
-		}catch(NumberFormatException ex){
+		} catch (NumberFormatException ex) {
 			String expectedMessage = "For input string: \"one\"";
 			assertEquals(expectedMessage, ex.getMessage());
 		}

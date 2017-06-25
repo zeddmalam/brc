@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * @DirectResponse entity is used for rendering responce for /api/direct
+ * DirectResponse entity is used for rendering response for /api/direct.
  */
 public class DirectResponse implements Serializable {
-	
+
 	@JsonProperty("dep_sid")
 	public Integer depSid;
 
