@@ -126,6 +126,7 @@
 				<version>2.6</version>
 				<executions>
 					<execution>
+						<id>0</id>
 						<phase>validate</phase>
 						<goals>
 							<goal>copy</goal>
@@ -143,14 +144,8 @@
 							</artifactItems>
 						</configuration>
 					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
 					<execution>
+						<id>1</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy</goal>

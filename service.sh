@@ -9,7 +9,7 @@ dev_build() {
 }
 
 dev_run() {
-	sudo java -jar target/endorsed/jetty-runner.jar --port 80 target/*.war
+	sudo java -jar target/dependency/jetty-runner.jar --port 80 target/*.war
 }
 
 dev_smoke() {

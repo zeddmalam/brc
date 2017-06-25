@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * API controller.
  */
-@Controller("defaultController")
+@Controller("apiController")
 @RequestMapping(value = "/api")
 public class ApiController {
 
@@ -34,12 +34,12 @@ public class ApiController {
 		Route route = routeDao.findDirect(depSid, arrSid);
 		
 		DirectResponse response = new DirectResponse()
-			.setDirect_bus_route(false)
-			.setArr_sid(arrSid)
-			.setDep_sid(depSid);
+			.setDirectBusRoute(false)
+			.setArrSid(arrSid)
+			.setDepSid(depSid);
 		
 		if(null != route){
-			response.setDirect_bus_route(Boolean.TRUE);
+			response.setDirectBusRoute(Boolean.TRUE);
 		}
 		return response;
 	}

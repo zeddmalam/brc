@@ -55,9 +55,9 @@ public class ApiControllerTest {
 		Integer arrSid = null;
 		
 		DirectResponse result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(false, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 		
 		/**
 		 * existing direct route with correct direction
@@ -66,9 +66,9 @@ public class ApiControllerTest {
 		arrSid = 138;
 		
 		result = apiController.direct(depSid, arrSid);
-		assertEquals(true, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(true, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 
 		/**
 		 * existing direct route with incorrect direction
@@ -77,9 +77,9 @@ public class ApiControllerTest {
 		arrSid = 5;
 		
 		result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(false, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 
 		/**
 		 * not existing direct route
@@ -88,9 +88,9 @@ public class ApiControllerTest {
 		arrSid = 17;
 		
 		result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(false, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 
 		/**
 		 * arrival stop id does not exists
@@ -99,9 +99,9 @@ public class ApiControllerTest {
 		arrSid = 17000;
 		
 		result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(false, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 
 		/**
 		 * departure stop id does not exists
@@ -110,9 +110,9 @@ public class ApiControllerTest {
 		arrSid = 17;
 		
 		result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(false, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 
 		/**
 		 * both stop ids does not exists
@@ -121,9 +121,9 @@ public class ApiControllerTest {
 		arrSid = 17000;
 		
 		result = apiController.direct(depSid, arrSid);
-		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(depSid, result.getDep_sid());
-		assertEquals(arrSid, result.getArr_sid());
+		assertEquals(false, result.getDirectBusRoute());
+		assertEquals(depSid, result.getDepSid());
+		assertEquals(arrSid, result.getArrSid());
 	}
 	
 }
