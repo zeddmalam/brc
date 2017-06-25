@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zeddmalam.brc.dao.dataFile;
 
 import com.zeddmalam.brc.model.Route;
@@ -20,8 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
- *
- * @author zedd
+ *	Implementation for route data access object. Uses text file with route data.
  */
 @Service
 public class RouteDaoDataFile implements RouteDao{
@@ -51,14 +45,12 @@ public class RouteDaoDataFile implements RouteDao{
 			Scanner scanner = new Scanner(dataFile);
 			String line = scanner.nextLine().trim();
 			Integer recordNumber = Integer.parseInt(line);
-			System.out.println("Going to  read records: " + recordNumber);
 			for(Integer x = 0; x < recordNumber; x++){
 				Route route = this.toRoute(scanner.nextLine());
 				routes.put(route.getId(), route);
 				this.indexRoute(route);
 			}
 			
-			System.out.println("Data import is finished");
 		} catch (FileNotFoundException ex) {
 			Logger.getLogger(RouteDaoDataFile.class.getName()).log(Level.SEVERE, null, ex);
 			throw new IllegalStateException(ex.getMessage());
@@ -69,14 +61,14 @@ public class RouteDaoDataFile implements RouteDao{
 	 * Finds first direct route between departure and arrival bus stops. All
 	 * the routes are uni-directional.
 	 * 
-	 * @param dep_sid departure bus station id
-	 * @param arr_sid arrival bus station id
+	 * @param depSid departure bus station id
+	 * @param arrSid arrival bus station id
 	 * @return route containing required bus stations or null
 	 */
 	@Override
-	public Route findDirect(Integer dep_sid, Integer arr_sid) {
-		ArrayList<Integer> dep_index = indexes.get(dep_sid);
-		ArrayList<Integer> arr_index = indexes.get(arr_sid);
+	public Route findDirect(Integer depSid, Integer arrSid) {
+		ArrayList<Integer> dep_index = indexes.get(depSid);
+		ArrayList<Integer> arr_index = indexes.get(arrSid);
 		
 		if(null == dep_index || null == arr_index){
 			return null;
@@ -84,7 +76,7 @@ public class RouteDaoDataFile implements RouteDao{
 		
 		for(Integer routeId: dep_index){
 			Route route = routes.get(routeId);
-			if(arr_index.contains(routeId) && route.sids.indexOf(dep_sid) < route.sids.indexOf(arr_sid)){
+			if(arr_index.contains(routeId) && route.sids.indexOf(depSid) < route.sids.indexOf(arrSid)){
 				return route;
 			}
 		}

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zeddmalam.brc.controller;
 
 import com.zeddmalam.brc.model.DirectResponse;
@@ -16,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- *
- * @author zedd
+ * API controller.
  */
 @Controller("defaultController")
 @RequestMapping(value = "/api")
-public class DefaultController {
+public class ApiController {
 
 	@Autowired
 	RouteDao routeDao;
@@ -30,19 +24,19 @@ public class DefaultController {
 	 * this API call determines if direct route is possible between departure
 	 * and arrival bus stations for single transportation provider
 	 * 
-	 * @param dep_sid departure bus station id
-	 * @param arr_sid arrival bus station id
+	 * @param depSid departure bus station id
+	 * @param arrSid arrival bus station id
 	 * @return JSON object
 	 */
 	@RequestMapping(value = "/direct", method = RequestMethod.GET)
 	@ResponseBody
-	public DirectResponse direct(@RequestParam("dep_sid") Integer dep_sid, @RequestParam("arr_sid") Integer arr_sid) {
-		Route route = routeDao.findDirect(dep_sid, arr_sid);
+	public DirectResponse direct(@RequestParam("dep_sid") Integer depSid, @RequestParam("arr_sid") Integer arrSid) {
+		Route route = routeDao.findDirect(depSid, arrSid);
 		
 		DirectResponse response = new DirectResponse()
 			.setDirect_bus_route(false)
-			.setArr_sid(arr_sid)
-			.setDep_sid(dep_sid);
+			.setArr_sid(arrSid)
+			.setDep_sid(depSid);
 		
 		if(null != route){
 			response.setDirect_bus_route(Boolean.TRUE);

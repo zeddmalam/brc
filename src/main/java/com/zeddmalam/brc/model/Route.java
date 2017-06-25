@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zeddmalam.brc.model;
 
 import java.io.Serializable;
@@ -11,14 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- *
- * @author zedd
+ * @Route entity.
  */
 @Entity
 public class Route implements Serializable {
 	@Id
 	public Integer Id;
-	public ArrayList<Integer> sids = new ArrayList<Integer>();
+	public ArrayList<Integer> sids = new ArrayList<>();
 
 	public Integer getId() {
 		return Id;

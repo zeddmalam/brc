@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zeddmalam.brc.dao.dataFile;
 
 import com.zeddmalam.brc.config.AppConfig;
@@ -22,8 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
- *
- * @author zedd
+ * Test for @RouteDaoDataFile
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
@@ -32,9 +26,6 @@ public class RouteDaoDataFileTest {
 	
 	@Autowired
 	RouteDao routeDao;
-	
-	public RouteDaoDataFileTest() {
-	}
 	
 	@BeforeClass
 	public static void setUpClass() {
@@ -57,8 +48,6 @@ public class RouteDaoDataFileTest {
 	 */
 	@Test
 	public void testFindDirect() {
-		System.out.println("findDirect");
-
 		/**
 		 * both route ids are null
 		 */

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.zeddmalam.brc.controller;
 
 import com.zeddmalam.brc.config.AppConfig;
@@ -21,20 +16,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
- *
- * @author zedd
+ * Test for @ApiController
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppConfig.class})
 @WebAppConfiguration
-public class DefaultControllerTest {
+public class ApiControllerTest {
 	
 	@Autowired
-	@Qualifier("defaultController")
-    DefaultController defaultController;
-	
-	public DefaultControllerTest() {
-	}
+	@Qualifier("apiController")
+    ApiController apiController;
 	
 	@BeforeClass
 	public static void setUpClass() {
@@ -55,85 +46,84 @@ public class DefaultControllerTest {
 	/**
 	 * Test of direct method, of class DefaultController.
 	 */
-	@org.junit.Test
+	@Test
 	public void testDirect() {
-		System.out.println("direct");
 		/**
 		 * both route ids are null
 		 */
-		Integer dep_sid = null;
-		Integer arr_sid = null;
+		Integer depSid = null;
+		Integer arrSid = null;
 		
-		DirectResponse result = defaultController.direct(dep_sid, arr_sid);
+		DirectResponse result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 		
 		/**
 		 * existing direct route with correct direction
 		 */
-		dep_sid = 5;
-		arr_sid = 138;
+		depSid = 5;
+		arrSid = 138;
 		
-		result = defaultController.direct(dep_sid, arr_sid);
+		result = apiController.direct(depSid, arrSid);
 		assertEquals(true, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 
 		/**
 		 * existing direct route with incorrect direction
 		 */
-		dep_sid = 138;
-		arr_sid = 5;
+		depSid = 138;
+		arrSid = 5;
 		
-		result = defaultController.direct(dep_sid, arr_sid);
+		result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 
 		/**
 		 * not existing direct route
 		 */
-		dep_sid = 5;
-		arr_sid = 17;
+		depSid = 5;
+		arrSid = 17;
 		
-		result = defaultController.direct(dep_sid, arr_sid);
+		result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 
 		/**
 		 * arrival stop id does not exists
 		 */
-		dep_sid = 5;
-		arr_sid = 17000;
+		depSid = 5;
+		arrSid = 17000;
 		
-		result = defaultController.direct(dep_sid, arr_sid);
+		result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 
 		/**
 		 * departure stop id does not exists
 		 */
-		dep_sid = 50000;
-		arr_sid = 17;
+		depSid = 50000;
+		arrSid = 17;
 		
-		result = defaultController.direct(dep_sid, arr_sid);
+		result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 
 		/**
 		 * both stop ids does not exists
 		 */
-		dep_sid = 50000;
-		arr_sid = 17000;
+		depSid = 50000;
+		arrSid = 17000;
 		
-		result = defaultController.direct(dep_sid, arr_sid);
+		result = apiController.direct(depSid, arrSid);
 		assertEquals(false, result.getDirect_bus_route());
-		assertEquals(dep_sid, result.getDep_sid());
-		assertEquals(arr_sid, result.getArr_sid());
+		assertEquals(depSid, result.getDep_sid());
+		assertEquals(arrSid, result.getArr_sid());
 	}
 	
 }
